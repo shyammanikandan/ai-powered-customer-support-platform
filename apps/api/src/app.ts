@@ -1,6 +1,6 @@
 import express from 'express';
 import ticketRoutes from './tickets/ticket.routes.js';
-
+import { errorHandler } from './middleware/error-handler.js';
 const app = express();
 
 app.use(express.json());
@@ -11,4 +11,5 @@ app.get('/health', (_req, res) => {
   });
 });
 
+app.use(errorHandler);
 export default app;
