@@ -1,18 +1,20 @@
-import { test } from 'node:test';
-import assert from 'node:assert/strict';
+import { it, expect } from 'vitest';
+
 import 'dotenv/config';
 import ticketRepository from './ticket.repository.js';
 
-test('findAllTickets returns tickets from PostgreSQL', async () => {
+it('findAllTickets returns tickets from PostgreSQL', async () => {
   const tickets = await ticketRepository.findAllTickets();
 
-  assert.ok(Array.isArray(tickets));
-  assert.ok(tickets.length > 0, 'Expected at least one ticket');
+  expect(Array.isArray(tickets)).toBe(true);
+
+  expect(tickets.length).toBeGreaterThan(0);
+
   for (const ticket of tickets) {
-    assert.equal(typeof ticket.id, 'string');
-    assert.equal(typeof ticket.subject, 'string');
-    assert.equal(typeof ticket.description, 'string');
-    assert.equal(typeof ticket.createdAt, 'string');
-    assert.ok(!Number.isNaN(Date.parse(ticket.createdAt)));
+    expect(typeof ticket.id).toBe('string');
+    expect(typeof ticket.subject).toBe('string');
+    expect(typeof ticket.description).toBe('string');
+    expect(typeof ticket.createdAt).toBe('string');
+    expect(Number.isNaN(Date.parse(ticket.createdAt))).toBe(false);
   }
 });
