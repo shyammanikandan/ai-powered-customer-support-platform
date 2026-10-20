@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import validateRequest from '../middleware/validate-request.js';
-import { createTicketSchema } from './ticket.schema.js';
+import { createTicketSchema, updateTicketSchema } from './ticket.schema.js';
 import ticketController from './ticket.controller.js';
 const router = Router();
 
@@ -11,4 +11,11 @@ router.post(
   validateRequest(createTicketSchema),
   ticketController.createTicket,
 );
+
+router.patch(
+  '/:id',
+  validateRequest(updateTicketSchema),
+  ticketController.updateTicket,
+);
+
 export default router;
